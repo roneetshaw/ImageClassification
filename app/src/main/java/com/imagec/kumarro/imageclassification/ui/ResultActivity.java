@@ -1,4 +1,4 @@
-package com.imagec.kumarro.imageclassification;
+package com.imagec.kumarro.imageclassification.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.imagec.kumarro.imageclassification.R;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -17,8 +19,8 @@ public class ResultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        resultText = (TextView) findViewById(R.id.resultText);
-        learnButton = (Button) findViewById(R.id.learnButton);
+        resultText = findViewById(R.id.resultText);
+        learnButton = findViewById(R.id.learnButton);
 
         String result = "Hmmmm.. It looks a ";
         learnButton.setOnClickListener(new View.OnClickListener() {
