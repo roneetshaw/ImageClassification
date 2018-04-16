@@ -19,7 +19,6 @@ public class ResultActivity extends AppCompatActivity {
     private TextView resultText;
     private Button learnButton;
     private ImageView responsePic;
-    private Map<String, String> knowledgeMap = new HashMap<String, String>();
     private String label;
     private String prob;
     private String fileString;
