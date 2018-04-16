@@ -30,7 +30,7 @@
         android:layout_marginTop="7dp">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/respImgView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher" />

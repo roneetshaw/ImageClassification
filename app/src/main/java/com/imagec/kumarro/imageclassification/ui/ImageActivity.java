@@ -1,9 +1,11 @@
 package com.imagec.kumarro.imageclassification.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -57,17 +59,26 @@ public class ImageActivity extends AppCompatActivity {
             super.onPostExecute(s);
             progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+
+            String label = s.substring(0, s.indexOf(':'));
+            String prob = s.substring(s.indexOf(':') + 1);
+            Log.e("ROXXX0", label);
+            Log.e("ROXXX0", prob);
+            Intent intent = new Intent(ImageActivity.this, ResultActivity.class);
+            intent.putExtra("label", label);
+            intent.putExtra("prob", prob);
+            intent.putExtra("pic", fileString);
+            startActivity(intent);
         }
 
         private String uploadFile() {
             String filePath = file.getPath();
             String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
             MultipartRequest multipartRequest;
-
             multipartRequest = new MultipartRequest(getApplicationContext());
             multipartRequest.addFile("photo", filePath, fileName);
-            multipartRequest.execute("http://104.211.240.116:5000/upload");
-            return "Success";
+            String respon = multipartRequest.execute("http://104.211.240.116:5000/upload");
+            return respon;
         }
     }
 }
