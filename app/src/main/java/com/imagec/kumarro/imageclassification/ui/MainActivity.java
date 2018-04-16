@@ -9,41 +9,35 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.imagec.kumarro.imageclassification.R;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private final String LOG_TAG = this.getClass().getName();
-    String mCurrentPhotoPath;
     private Uri file;
     private int PICK_IMAGE_REQUEST = 1;
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+    public static File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "PowerHealth");
 
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
     }
 
     @Override
@@ -83,16 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void takePicture(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File snapFile = null;
-        try {
-            snapFile = createImageFile();
-        } catch (Exception e) {
-            Log.e(LOG_TAG, e.toString());
-        }
-        if (snapFile != null) {
-            file = FileProvider.getUriForFile(this, "com.imagec.kumarro.imageclassification.fileprovider", snapFile);
-        }
-        // file = Uri.fromFile(getOutputMediaFile());
+        file = Uri.fromFile(getOutputMediaFile());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
         String path = file.getPath();
         Toast.makeText(getApplicationContext(), path, Toast.LENGTH_LONG).show();
@@ -103,26 +88,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100 && resultCode == RESULT_OK) {
-            galleryAddPic();
             Intent intent = new Intent(this, ImageActivity.class);
-            intent.putExtra("Snap", file.toString());
+            intent.putExtra("Snap", file.getPath());
             startActivity(intent);
         }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             Uri uri = data.getData();
             Intent intent = new Intent(this, ImageActivity.class);
-            intent.putExtra("Snap", uri.toString());
+            intent.putExtra("Snap", uri.getPath());
             startActivity(intent);
         }
 
-    }
-
-    private void galleryAddPic() {
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        this.sendBroadcast(mediaScanIntent);
     }
 }

@@ -69,10 +69,10 @@ public class ImageActivity extends AppCompatActivity {
         }
 
         private String uploadFile() {
-            String filePath = file.getPath();
-            Log.i("filePath:",filePath);
+            String filePath = fileString;
+            Log.e("filePath:", filePath);
             String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
-            Log.i("fileName:",fileName);
+            Log.e("fileName:", fileName);
             MultipartRequest multipartRequest;
             multipartRequest = new MultipartRequest(getApplicationContext());
             multipartRequest.addFile("photo", filePath, fileName);
