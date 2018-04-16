@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
         String path = file.getPath();
         Toast.makeText(getApplicationContext(), path, Toast.LENGTH_LONG).show();
+
         startActivityForResult(intent, 100);
     }
 
@@ -88,14 +89,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100 && resultCode == RESULT_OK) {
                 Intent intent = new Intent(this, ImageActivity.class);
-                intent.putExtra("Snap", file.toString());
+            intent.putExtra("Snap", file.getPath());
                 startActivity(intent);
             }
             if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
                 Uri uri = data.getData();
                 Intent intent = new Intent(this, ImageActivity.class);
-                intent.putExtra("Snap", uri.toString());
+                intent.putExtra("Snap", uri.getPath());
                 startActivity(intent);
             }
 

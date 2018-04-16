@@ -7,14 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.imagec.kumarro.imageclassification.R;
 import com.imagec.kumarro.imageclassification.util.MultipartRequest;
 
 public class ImageActivity extends AppCompatActivity {
     private ImageView snap;
-    private Uri file;
+    public Uri file;
+    private String fileString;
     private ProgressBar progressBar;
+    private String response = "Network Error";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,8 @@ public class ImageActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         snap = findViewById(R.id.snap);
-        String fileString = getIntent().getStringExtra("Snap");
+        fileString = getIntent().getStringExtra("Snap");
+        Toast.makeText(getApplicationContext(), fileString, Toast.LENGTH_LONG).show();
         file = Uri.parse(fileString);
         snap.setImageURI(file);
 
@@ -52,6 +56,7 @@ public class ImageActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             progressBar.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
         }
 
         private String uploadFile() {
@@ -61,7 +66,7 @@ public class ImageActivity extends AppCompatActivity {
 
             multipartRequest = new MultipartRequest(getApplicationContext());
             multipartRequest.addFile("photo", filePath, fileName);
-            multipartRequest.execute("http://192.168.0.102:5000/upload");
+            multipartRequest.execute("http://104.211.240.116:5000/upload");
             return "Success";
         }
     }

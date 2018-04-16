@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 import com.imagec.kumarro.imageclassification.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ResultActivity extends AppCompatActivity {
 
     private TextView resultText;
     private Button learnButton;
+    private Map<String, String> knowledgeMap = new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,7 @@ public class ResultActivity extends AppCompatActivity {
         resultText = findViewById(R.id.resultText);
         learnButton = findViewById(R.id.learnButton);
 
-        String result = "Hmmmm.. It looks a ";
+        String result = "The probablity  ";
         learnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
