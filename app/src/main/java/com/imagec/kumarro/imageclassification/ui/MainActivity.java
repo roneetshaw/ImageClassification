@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param view
      */
-    private void loadSnap(View view) {
+    public void loadSnap(View view) {
         Intent intent = new Intent();
         // Show only images, no videos or anything else
         intent.setType("image/*");

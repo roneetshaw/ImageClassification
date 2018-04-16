@@ -22,6 +22,7 @@
         android:layout_below="@id/takeSnap"
         android:layout_centerInParent="true"
         android:layout_marginTop="32dp"
+        android:onClick="loadSnap"
         android:text="Load a picture" />
 
 </RelativeLayout>
