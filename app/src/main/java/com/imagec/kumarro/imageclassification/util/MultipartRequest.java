@@ -1,4 +1,4 @@
-package com.imagec.kumarro.imageclassification;
+package com.imagec.kumarro.imageclassification.util;
 
 import android.content.Context;
 import android.util.Log;

@@ -1,61 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/lnBtnLayout"
-        android:layout_width="match_parent"
-        android:layout_height="71dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp">
+
+    <Button
+        android:id="@+id/takeSnap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="takePicture"
+        android:text="Take Picture" />
 
         <Button
             android:id="@+id/btnLoadImg"
             android:layout_width="86dp"
             android:layout_height="66dp"
-            android:layout_weight="1"
-            android:text="Load a picture"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
-
-        <Button
-            android:id="@+id/button_image"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/btnLoadImg"
-            android:layout_centerHorizontal="true"
-            android:layout_weight="1"
-            android:onClick="takePicture"
-            android:text="Take a picture!"
-            tools:layout_editor_absoluteX="273dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:text="Load a picture" />
 
         <Button
             android:id="@+id/btnUpload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="upload"
             android:onClick="UploadPicture"
-            tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="16dp" />
+            android:text="upload" />
     </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/imageview"
-        android:layout_width="299dp"
-        android:layout_height="307dp"
-        android:layout_alignBottom="@+id/lnBtnLayout"
-        android:layout_centerHorizontal="true"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="16dp" />
-</android.support.constraint.ConstraintLayout>
