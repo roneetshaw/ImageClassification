@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.imagec.kumarro.imageclassification.R;
 import com.imagec.kumarro.imageclassification.util.MultipartRequest;
@@ -25,14 +24,12 @@ public class ImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
         snap = findViewById(R.id.snap);
         fileString = getIntent().getStringExtra("Snap");
-        Toast.makeText(getApplicationContext(), fileString, Toast.LENGTH_LONG).show();
-        file = Uri.parse(fileString);
-        snap.setImageURI(file);
-        Log.i("fileURI",file.toString());
+        snap.setImageURI(Uri.parse(fileString));
+        Log.i("fileURI", fileString.toString());
 
     }
 
@@ -59,7 +56,6 @@ public class ImageActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
 
             String label = s.substring(0, s.indexOf(':'));
             String prob = s.substring(s.indexOf(':') + 1);

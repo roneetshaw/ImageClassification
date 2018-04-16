@@ -25,11 +25,11 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
 
+    private final String LOG_TAG = this.getClass().getName();
+    String mCurrentPhotoPath;
     private Uri file;
     private int PICK_IMAGE_REQUEST = 1;
-    private final String LOG_TAG = this.getClass().getName();
 
-    String mCurrentPhotoPath;
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -45,20 +45,6 @@ public class MainActivity extends AppCompatActivity {
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
-   /* public static File getOutputMediaFile() {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "PowerHealth");
-
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
-            }
-        }
-
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_" + timeStamp + ".jpg");
-    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -98,13 +84,13 @@ public class MainActivity extends AppCompatActivity {
     protected void takePicture(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File snapFile = null;
-        try{
+        try {
             snapFile = createImageFile();
-        }catch (Exception e){
-            Log.e(LOG_TAG,e.toString());
+        } catch (Exception e) {
+            Log.e(LOG_TAG, e.toString());
         }
-        if(snapFile!=null){
-            file = FileProvider.getUriForFile(this,"com.imagec.kumarro.imageclassification",snapFile);
+        if (snapFile != null) {
+            file = FileProvider.getUriForFile(this, "com.imagec.kumarro.imageclassification.fileprovider", snapFile);
         }
         // file = Uri.fromFile(getOutputMediaFile());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
@@ -117,17 +103,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 100 && resultCode == RESULT_OK) {
-                Intent intent = new Intent(this, ImageActivity.class);
-            intent.putExtra("Snap", file.getPath());
-                startActivity(intent);
-            }
-            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            galleryAddPic();
+            Intent intent = new Intent(this, ImageActivity.class);
+            intent.putExtra("Snap", file.toString());
+            startActivity(intent);
+        }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-                Uri uri = data.getData();
-                Intent intent = new Intent(this, ImageActivity.class);
-                intent.putExtra("Snap", uri.getPath());
-                startActivity(intent);
-            }
+            Uri uri = data.getData();
+            Intent intent = new Intent(this, ImageActivity.class);
+            intent.putExtra("Snap", uri.toString());
+            startActivity(intent);
+        }
 
+    }
+
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(mCurrentPhotoPath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        this.sendBroadcast(mediaScanIntent);
     }
 }
