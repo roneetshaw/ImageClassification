@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Uri file;
+    private int PICK_IMAGE_REQUEST = 1;
 
     public static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
@@ -60,6 +61,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Loading the image from galary
+     *
+     * @param view
+     */
+    private void loadSnap(View view) {
+        Intent intent = new Intent();
+        // Show only images, no videos or anything else
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        // Always show the chooser (if there are multiple options available)
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
     protected void takePicture(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         file = Uri.fromFile(getOutputMediaFile());
@@ -77,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("Snap", file.toString());
                 startActivity(intent);
 
+            }
+            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+                Uri uri = data.getData();
+                Intent intent = new Intent(this, ImageActivity.class);
+                intent.putExtra("Snap", uri.toString());
+                startActivity(intent);
             }
         }
     }
