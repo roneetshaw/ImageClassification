@@ -86,12 +86,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 100) {
-            if (resultCode == RESULT_OK) {
+        if (requestCode == 100 && resultCode == RESULT_OK) {
                 Intent intent = new Intent(this, ImageActivity.class);
                 intent.putExtra("Snap", file.toString());
                 startActivity(intent);
-
             }
             if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
@@ -100,6 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("Snap", uri.toString());
                 startActivity(intent);
             }
-        }
+
     }
 }
