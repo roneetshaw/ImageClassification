@@ -32,6 +32,7 @@ public class ImageActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), fileString, Toast.LENGTH_LONG).show();
         file = Uri.parse(fileString);
         snap.setImageURI(file);
+        Log.i("fileURI",file.toString());
 
     }
 
@@ -73,7 +74,9 @@ public class ImageActivity extends AppCompatActivity {
 
         private String uploadFile() {
             String filePath = file.getPath();
+            Log.i("filePath:",filePath);
             String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+            Log.i("fileName:",fileName);
             MultipartRequest multipartRequest;
             multipartRequest = new MultipartRequest(getApplicationContext());
             multipartRequest.addFile("photo", filePath, fileName);
