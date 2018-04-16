@@ -15,6 +15,12 @@
             android:layout_height="match_parent" />
     </FrameLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,6 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
         android:background="@null"
+        android:onClick="uploadSnap"
         android:src="@drawable/upload" />
 
 </RelativeLayout>

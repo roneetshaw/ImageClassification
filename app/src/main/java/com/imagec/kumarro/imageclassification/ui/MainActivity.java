@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.imagec.kumarro.imageclassification.R;
-import com.imagec.kumarro.imageclassification.util.MultipartRequest;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -54,10 +52,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
         setContentView(R.layout.activity_main);
+
     }
 
     protected void takePicture(View view) {
@@ -80,35 +80,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    protected void UploadPicture(View v) {
-        new UploadFileToServer().execute();
-    }
-
-    /**
-     * Uploading the file to server
-     */
-    private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            return uploadFile();
-        }
-
-        private String uploadFile() {
-            String filePath = file.getPath();
-            String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
-            MultipartRequest multipartRequest;
-
-            multipartRequest = new MultipartRequest(getApplicationContext());
-            multipartRequest.addFile("photo", filePath, fileName);
-            multipartRequest.execute("http://192.168.0.102:5000/upload");
-            return "Success";
-        }
-    }
-
 }

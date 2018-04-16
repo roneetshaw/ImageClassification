@@ -23,6 +23,7 @@
         <activity
             android:name=".ui.ImageActivity"
             android:theme="@style/FullscreenTheme" />
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>
