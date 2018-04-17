@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.imagec.kumarro.imageclassification.R;
 import com.imagec.kumarro.imageclassification.util.MultipartRequest;
@@ -55,6 +56,7 @@ public class ImageActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            if(s!=null){
             progressBar.setVisibility(View.GONE);
 
             String label = s.substring(0, s.indexOf(':'));
@@ -65,7 +67,10 @@ public class ImageActivity extends AppCompatActivity {
             intent.putExtra("label", label);
             intent.putExtra("prob", prob);
             intent.putExtra("pic", fileString);
-            startActivity(intent);
+            startActivity(intent);}
+            else{
+                Toast.makeText(ImageActivity.this, "Failed to connect to Internet.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         private String uploadFile() {
