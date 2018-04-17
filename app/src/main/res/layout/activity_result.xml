@@ -11,6 +11,9 @@
         android:layout_height="101dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
         android:layout_marginBottom="108dp" />
 
     <Button
@@ -33,6 +36,7 @@
             android:id="@+id/respImgView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:src="@mipmap/ic_launcher" />
     </FrameLayout>
 </RelativeLayout>

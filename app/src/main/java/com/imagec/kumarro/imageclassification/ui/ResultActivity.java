@@ -35,7 +35,7 @@ public class ResultActivity extends AppCompatActivity {
         Uri file = Uri.parse(fileString);
         responsePic.setImageURI(file);
 
-        String result = "There is a probability of " + label + " that the image is of " + prob;
+        String result = "Probability of " + label + " is " + prob;
         resultText.setText(result);
         final Map<String, String> urlMap = new HashMap<>();
         urlMap.put("burger", "https://en.wikipedia.org/wiki/Burger");

@@ -12,7 +12,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.imagec.kumarro.imageclassification.R;
 
@@ -105,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100 && resultCode == RESULT_OK) {
             Intent intent = new Intent(this, ImageActivity.class);
             intent.putExtra("Snap", file.getPath());
-            Toast.makeText(getApplicationContext(), file.getPath(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), file.getPath(), Toast.LENGTH_LONG).show();
             startActivity(intent);
         }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             Uri uri = data.getData();
             String fil = getRealPathFromURI(uri);
             Intent intent = new Intent(this, ImageActivity.class);
-            Toast.makeText(getApplicationContext(), file.getPath(), Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), file.getPath(), Toast.LENGTH_LONG).show();
             intent.putExtra("Snap", fil);
             startActivity(intent);
         }
