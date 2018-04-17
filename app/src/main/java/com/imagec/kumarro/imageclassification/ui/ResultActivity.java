@@ -31,11 +31,12 @@ public class ResultActivity extends AppCompatActivity {
         responsePic = findViewById(R.id.respImgView);
         label = getIntent().getStringExtra("label");
         prob = getIntent().getStringExtra("prob");
+        double pro = Double.parseDouble(prob) * 100.0;
         fileString = getIntent().getStringExtra("pic");
         Uri file = Uri.parse(fileString);
         responsePic.setImageURI(file);
 
-        String result = "Probability of " + label + " is " + prob;
+        String result = "Probability of " + label + " is " + pro + "%";
         resultText.setText(result);
         final Map<String, String> urlMap = new HashMap<>();
         urlMap.put("burger", "https://en.wikipedia.org/wiki/Burger");
